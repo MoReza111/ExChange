@@ -15,8 +15,15 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Run when client connects
 io.on('connection', socket => {
     console.log('New WS Connection...')
+
+
+    // Listening for change (PRICE)
+    socket.on('Change', (result) => {
+        console.log(result)
+        io.emit('price', result.price)
+    })
 })
 
 const PORT = 3000 || process.env.PORT
 
-server.listen(PORT, () => console.log(`Listenning On PORT ${PORT}`))
+server.listen(PORT, () => console.log(`Listening On PORT ${PORT}`))
