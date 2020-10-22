@@ -1,6 +1,7 @@
 const http = require('http')
 const path = require('path')
 const express = require('express')
+const fetch = require('node-fetch');
 const socketio = require('socket.io')
 
 
@@ -19,8 +20,30 @@ io.on('connection', socket => {
 
     // Listening for change (PRICE)
     socket.on('Change', (result) => {
-        console.log(result)
         io.emit('price', result.price)
+    })
+})
+
+app.get('/api/price', async (req, res, next) => {
+    const result = await fetch('https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT')
+    const finalResult = await result.json()
+    console.log(finalResult)
+    res.status(200).json({
+        status: 'success',
+        data: {
+            symbol: 'BTCRIAL',
+            price: finalResult.price * 1 * 29750,
+        }
+    })
+})
+
+app.all('*', (req, res, next) => {
+    res.status(404).json({
+        status: 'fail',
+        data: {
+            err: `There is no such a route on this server!!!`,
+            url: `${req.originalUrl}`
+        }
     })
 })
 
