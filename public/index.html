@@ -4,12 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bit</title>
+    <title>Test</title>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <input type="text" id="showPrice" style="padding: 10px;">
-    <h1></h1>
+    <header>
+        <span id="clock"></span>
+    </header>
+
+    <main>
+        <div id="exchange">
+            <div>
+                <h1>ریال</h1>
+                <input type="text" id="rial">
+            </div>
+            <div id="equal">
+                <span>=</span>
+            </div>
+            <div>
+                <h1>بیت کوین</h1>
+                <input type="text" id="btc">
+            </div>
+        </div>
+        <div id="price">
+            <h1>قیمت لحظه ای</h1>
+            <input type="text" id="priceInput">
+            <span id="profit"></span>
+        </div>
+    </main>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/main.js"></script>
